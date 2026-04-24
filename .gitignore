@@ -1,0 +1,10 @@
+.dbc
+.env
+.idea
+.ipynb_checkpoints
+__pycache__
+*.pyc
+*.pyo
+*.pyd
+*.db
+*.sqlite        

@@ -1,0 +1,27 @@
+resources:
+  jobs:
+    vgsales_analytics_pipeline:
+      name: vgsales_analytics_pipeline
+      description: Orchestration for Video Game Sales Analytics
+      tasks:
+        - task_key: 00_setup
+          notebook_task:
+            notebook_path: /Workspace/Users/shashwatnath30@gmail.com/Video-Game-Sales-Analytics/setup
+            source: WORKSPACE
+        - task_key: 01_vgsales_dlt_pipeline
+          depends_on:
+            - task_key: 00_setup
+          pipeline_task:
+            pipeline_id: 3547fc5a-53e7-4c12-b8d8-bf21c57ee8f6
+            full_refresh: false
+        - task_key: 02_dashboard_refresh
+          depends_on:
+            - task_key: 01_vgsales_dlt_pipeline
+          dashboard_task:
+            subscription: {}
+            dashboard_id: 01f13faf28661434911647452d3d1be2
+          max_retries: 1
+          min_retry_interval_millis: 900000
+      queue:
+        enabled: true
+      performance_target: PERFORMANCE_OPTIMIZED
